@@ -4,20 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CLEAN MARKUP = GOOD KARMA.
-      Hi source code lover,
-
-      you're a curious person and a fast learner ;)
-      Let's make something beautiful together. Contribute on Github:
-      https://github.com/webslides/webslides
-
-      Thanks,
-      @jlantunez.
-    -->
-
     <!-- SEO -->
-    <title>WebSlides: Making HTML presentations easy</title>
-    <meta name="description" content="WebSlides is the easiest way to make HTML presentations, portfolios, and landings. Just essential features.">
+    <title>Natural language processing tech talk</title>
+    <meta name="description" content="Presentation about natural language processing and relation extraction">
 
     <!-- URL CANONICAL -->
     <!-- <link rel="canonical" href="http://your-url.com/"> -->
@@ -37,20 +26,20 @@
     <!-- SOCIAL CARDS (ADD YOUR INFO) -->
 
     <!-- FACEBOOK -->
-    <meta property="og:url" content="http://your-url.com/"> <!-- YOUR URL -->
+    <meta property="og:url" content="blog.globality.com/nlp">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="WebSlides — Making HTML Presentations Easy"> <!-- EDIT -->
-    <meta property="og:description" content="WebSlides is about telling stories beautifully. Just the essential features. Good karma."> <!-- EDIT -->
-    <meta property="og:updated_time" content="2017-01-04T17:20:50"> <!-- EDIT -->
-    <meta property="og:image" content="static/images/share-webslides.jpg"> <!-- EDIT -->
+    <meta property="og:title" content="Natural language processing tech talk">
+    <meta property="og:description" content="Presentation about natural language processing and relation extraction">
+    <meta property="og:updated_time" content="2017-04-25T16:26:50">
+    <meta property="og:image" content="static/images/relation.jpg">
 
     <!-- TWITTER -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@webslides"> <!-- EDIT -->
-    <meta name="twitter:creator" content="@jlantunez"> <!-- EDIT -->
-    <meta name="twitter:title" content="WebSlides — Making HTML Presentations Easy"> <!-- EDIT -->
-    <meta name="twitter:description" content="WebSlides is about good karma. Just essential features. 120+ free slides ready to use."> <!-- EDIT -->
-    <meta name="twitter:image" content="static/images/share-webslides.jpg"> <!-- EDIT -->
+    <meta name="twitter:site" content="@globality">
+    <meta name="twitter:creator" content="@pokey">
+    <meta name="twitter:title" content="Natural language processing tech talk">
+    <meta name="twitter:description" content="Presentation about natural language processing and relation extraction">
+    <meta name="twitter:image" content="static/images/relation.jpg">
 
     <!-- FAVICONS -->
     <link rel="shortcut icon" sizes="16x16" href="static/images/favicons/favicon.png">
@@ -69,58 +58,117 @@
   <body>
     <header role="banner">
       <nav role="navigation">
-        <p class="logo"><a href="index.html" title="WebSlides">WebSlides</a></p>
+        <p class="logo"><a href="https://www.globality.com/en-us"
+                           title="Globality">Globality</a></p>
         <ul>
           <li class="github">
-            <a rel="external" href="https://github.com/webslides/webslides" title="Github">
+            <a rel="external" href="https://github.com/globality" title="Github">
               <svg class="fa-github">
                 <use xlink:href="#fa-github"></use>
               </svg>
-              <em>WebSlides</em>
+              <em>Globality</em>
             </a>
           </li>
           <li class="twitter">
-            <a rel="external" href="https://twitter.com/webslides" title="Twitter">
+            <a rel="external" href="https://twitter.com/globality" title="Twitter">
               <svg class="fa-twitter">
                 <use xlink:href="#fa-twitter"></use>
               </svg>
-              <em>@WebSlides</em>
+              <em>@Globality</em>
             </a>
           </li>
-          <!--  <li class="dribbble"><a rel="external" href="http://dribbble.com/webslides" title="Dribbble"><svg class="fa-dribbble"><use xlink:href="#fa-dribbble"></use></svg> <em>webslides</em></a></li> -->
         </ul>
       </nav>
     </header>
 
     <main role="main">
-      <article id="webslides" class="vertical">
-        <!-- Quick Guide
-          - Each parent <section> in the <article id="webslides"> element is an individual slide.
-          - Vertical sliding = <article id="webslides" class="vertical">
-          - <div class="wrap"> = container 90% / <div class="wrap size-50"> = 45%;
-        -->
+      <article id="webslides">
+
+        <section class="bg-black aligncenter">
+          <span class="background dark"
+             style="background-image:url('static/images/chris-barbalis-95663.jpg')"></span>
+          <div class="wrap aligncenter">
+            <h1><strong>Natural language processing</strong></h1>
+            <p class="text-intro">
+               From text to data.
+            </p>
+          </div>
+        </section>
 
         <section>
-         <span class="background" style="background-image:url('https://webslides.tv/static/images/nature.jpg')"></span>
-          <!--.wrap = container (width: 90%) -->
-          <div class="wrap aligncenter">
-            <h1><strong>Create beautiful stories</strong></h1>
-            <p class="text-intro">WebSlides makes HTML presentations easy.<br>
-              Just the essentials and using lovely CSS.
-            </p>
-            <p>
-              <a href="https://webslides.tv/webslides-latest.zip" class="button zoomIn" title="Download WebSlides for free">
-                <svg class="fa-cloud-download">
-                  <use xlink:href="#fa-cloud-download"></use>
-                </svg>
-                WebSlides
-              </a>
-            </p>
+          <div class="wrap">
+            <h3>Pipeline</h3>
+            <ul class="flexblock steps">
+              <li>
+                <span>
+                  <svg class="fa-scissors">
+                    <use xlink:href="#fa-scissors"></use>
+                  </svg>
+                </span>
+                <h2>01. Tokenization</h2>
+                <p>Split the text into individual tokens</p>
+                <p>
+                   <code>["We", "are", "located", "in", "Germany"]</code>
+                </p>
+              </li>
+              <li>
+                <div class="process step-2"></div>
+                <span>
+                  <svg class="fa-tag">
+                    <use xlink:href="#fa-tag"></use>
+                  </svg>
+                </span>
+                <h2>02. POS tagging</h2>
+                <p>Determine the part of speech of each token</p>
+                <img src="static/images/pos-tags.svg" alt="POS tagged sentence">
+              </li>
+              <li>
+                <div class="process step-3"></div>
+                <span>
+                  <svg class="fa-tree">
+                    <use xlink:href="#fa-tree"></use>
+                  </svg>
+                </span>
+                <h2>03. Dependency parsing</h2>
+                <p>Parse the sentence into a hierarchical structure</p>
+                <img src="static/images/dep-parse.svg" alt="Dep parsed sentence">
+              </li>
+              <li>
+                <div class="process step-4"></div>
+                <span>
+                  <svg class="fa-link">
+                    <use xlink:href="#fa-link"></use>
+                  </svg>
+                </span>
+                <h2>04. Relation extraction</h2>
+                <ul>
+                  <li>Useful</li>
+                  <li>Easy</li>
+                  <li>Fast</li>
+                  <li>Beautiful</li>
+                </ul>
+              </li>
+              <li>
+                <div class="process step-5"></div>
+                <span>
+                  <svg class="fa-link">
+                    <use xlink:href="#fa-link"></use>
+                  </svg>
+                </span>
+                <h2>05. Relation extraction</h2>
+                <ul>
+                  <li>Useful</li>
+                  <li>Easy</li>
+                  <li>Fast</li>
+                  <li>Beautiful</li>
+                </ul>
+              </li>
+            </ul>
           </div>
           <!-- .end .wrap -->
         </section>
+
         <section>
-          <!--.wrap = container (width: 90%) -->
           <div class="wrap size-50 aligncenter">
             <h2><strong>Why WebSlides?</strong></h2>
             <p class="text-intro"><a href="demos/why-webslides.html" title="Why WebSlides?">Presentations</a>, <a href="demos/landings.html" title="Landings">landings</a>, <a href="demos/portfolios.html" title="Portfolios">portfolios</a>, and <a href="demos/longforms.html" title="Longforms">longforms</a>.</p>
@@ -136,9 +184,7 @@
                 </li>
               </ul>
             </div>
-            <!-- .end .bg-white shadow -->
           </div>
-          <!-- .end .wrap -->
         </section>
         <section>
           <!--.wrap = container (width: 90%) -->
