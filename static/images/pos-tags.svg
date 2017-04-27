@@ -1,0 +1,43 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="355" height="75" viewBox="0 0 355 75"
+     preserveAspectRatio="xMinYMax meet" data-format="spacy"
+     id="displacy-svg" style="color: rgb(0, 0, 0); font-family: inherit;"
+     version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns="http://www.w3.org/2000/svg">
+   <defs xmlns="http://www.w3.org/1999/xhtml">
+      <style type="text/css">
+         <![CDATA[
+         .displacy-word { font-size: 1.25rem; color: rgb(0, 0, 0); }
+         .displacy-tag { font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1rem; line-height: normal; font-family: "Input Mono Compressed", Consolas, "Andale Mono", Menlo, Monaco, Courier, monospace; color: rgb(0, 128, 0); }
+         [data-format="spacy"] .displacy-tag[data-tag^="NN"] { color: rgb(253, 151, 32); }
+         [data-format="spacy"] .displacy-tag[data-tag^="VB"] { color: rgb(224, 0, 132); }
+         [data-format="spacy"] .displacy-tag[data-tag^="."] { color: rgb(135, 144, 138); }
+         [data-format="spacy"] .displacy-tag[data-tag^=","] { color: rgb(135, 144, 138); }
+         [data-format="google"] .displacy-tag[data-tag^="NOUN"] { color: rgb(253, 151, 32); }
+         [data-format="google"] .displacy-tag[data-tag^="VERB"] { color: rgb(224, 0, 132); }
+         [data-format="google"] .displacy-tag[data-tag^="PUNCT"] { color: rgb(135, 144, 138); }
+         ]]>
+       </style>
+    </defs>
+    <text class="displacy-token" fill="currentColor" data-tag="PRP" text-anchor="middle" y="25">
+       <tspan class="displacy-word" x="16" fill="currentColor" data-tag="PRP">We</tspan>
+       <tspan class="displacy-tag" x="16" dy="2em" fill="currentColor" data-tag="PRP">PRP</tspan>
+    </text>
+    <text class="displacy-token" fill="currentColor" data-tag="VBP" text-anchor="middle" y="25">
+       <tspan class="displacy-word" x="91" fill="currentColor" data-tag="VBP">are</tspan>
+       <tspan class="displacy-tag" x="91" dy="2em" fill="currentColor" data-tag="VBP">VBP</tspan>
+    </text>
+    <text class="displacy-token" fill="currentColor" data-tag="VBN" text-anchor="middle" y="25">
+       <tspan class="displacy-word" x="166" fill="currentColor" data-tag="VBN">located</tspan>
+       <tspan class="displacy-tag" x="166" dy="2em" fill="currentColor" data-tag="VBN">VBN</tspan>
+    </text>
+    <text class="displacy-token" fill="currentColor" data-tag="IN" text-anchor="middle" y="25">
+       <tspan class="displacy-word" x="241" fill="currentColor" data-tag="IN">in</tspan>
+       <tspan class="displacy-tag" x="241" dy="2em" fill="currentColor" data-tag="IN">IN</tspan>
+    </text>
+    <text class="displacy-token" fill="currentColor" data-tag="NNP" text-anchor="middle" y="25">
+       <tspan class="displacy-word" x="316" fill="currentColor" data-tag="NNP">Germany.</tspan>
+       <tspan class="displacy-tag" x="316" dy="2em" fill="currentColor" data-tag="NNP">NNP</tspan>
+    </text>
+</svg>
