@@ -1437,7 +1437,7 @@ nav[role=navigation] li a {
   max-width: 100%;
   /*full li>a when you decide*/
 }
-nav[role=navigation] li a svg {margin: 1.5rem .4rem 1.5rem 0;}
+nav[role=navigation] li a i {margin: 1.5rem .4rem 1.5rem 0;}
 
 header nav ul {
   margin: 0;
