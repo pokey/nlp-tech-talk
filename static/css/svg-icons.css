@@ -11,7 +11,7 @@ SVG ICONS - Don't use icon fonts:
 https://speakerdeck.com/ninjanails/death-to-fa-fonts
 ======================================================= */
 
-i {
+i,svg {
 	display: inline-block;
 	vertical-align: middle;
 	width: 1em;

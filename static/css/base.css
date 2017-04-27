@@ -248,7 +248,7 @@ img:hover {
   filter: alpha(opacity=90);
 }
 
-i:not(:root) {
+i:not(:root), svg:not(:root) {
   overflow: hidden;
 }
 
@@ -442,10 +442,10 @@ img.aligncenter,figure.aligncenter {
   margin-top: .8rem;
   margin-bottom: .8rem;
 }
-img.alignright,i.alignright,figure.alignright {
+img.alignright,i.alignright,svg.alignright,figure.alignright {
   margin: .8rem 0 .8rem 2.4rem
 }
-img.alignleft,i.alignleft,figure.alignleft {
+img.alignleft,i.alignleft,svg.alignleft,figure.alignleft {
   margin: .8rem 2.4rem .8rem 0;
 }
 
