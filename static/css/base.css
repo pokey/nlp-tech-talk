@@ -248,7 +248,7 @@ img:hover {
   filter: alpha(opacity=90);
 }
 
-svg:not(:root) {
+i:not(:root) {
   overflow: hidden;
 }
 
@@ -442,10 +442,10 @@ img.aligncenter,figure.aligncenter {
   margin-top: .8rem;
   margin-bottom: .8rem;
 }
-img.alignright,svg.alignright,figure.alignright {
+img.alignright,i.alignright,figure.alignright {
   margin: .8rem 0 .8rem 2.4rem
 }
-img.alignleft,svg.alignleft,figure.alignleft {
+img.alignleft,i.alignleft,figure.alignleft {
   margin: .8rem 2.4rem .8rem 0;
 }
 
@@ -938,14 +938,14 @@ ul.description li,.column ul li {list-style: none;margin-left: 0;}
 .column ol>li {margin-left: 1.6rem;
 }
 
-h1 svg,
-h2 svg, h3 svg, h4 svg {
+h1 i,
+h2 i, h3 i, h4 i {
   margin-top: -.8rem;
 }
-.text-intro svg,.text-quote p svg,.wall p svg,.try svg {
+.text-intro i,.text-quote p i,.wall p i,.try i {
   margin-top: -.4rem;
 }
-.flexblock li h2 svg,.flexblock li h3 svg {margin-top: 0;
+.flexblock li h2 i,.flexblock li h3 i {margin-top: 0;
 }
 
 h1 {
@@ -1069,7 +1069,7 @@ p.subtitle + h1/h2 */
 p.text-subtitle {
   font-size: 1.6rem;
 }
-p.text-subtitle svg {vertical-align: text-top;}
+p.text-subtitle i {vertical-align: text-top;}
 
 .text-subtitle {
   text-transform: uppercase;
@@ -1914,7 +1914,7 @@ div + ul, div + ol{
 .features li p em {
   display: block;
 }
-.features li span,.features li svg {
+.features li span,.features li i {
   font-size: 6.4rem;
   line-height: 1;
   display: block;
@@ -1928,7 +1928,7 @@ div + ul, div + ol{
 
 @media (min-width:1200px) {
   .features li span,
-  .features li svg,.features li img {
+  .features li i,.features li img {
     float: left;
     margin-right: .8rem;
   }
@@ -1954,12 +1954,12 @@ div + ul, div + ol{
   justify-content: inherit;
 }
 
-.clients li img,.clients li svg {
+.clients li img,.clients li i {
   display: block;
   padding: 2.4rem;
 }
 
-.clients.border li img,.clients.border li svg {
+.clients.border li img,.clients.border li i {
   margin-right: auto;
   margin-left: auto;
   display: block;
@@ -2023,7 +2023,7 @@ About, Philosophy...
   display: block;
 }
 
-.metrics li span,.metrics li svg {
+.metrics li span,.metrics li i {
   font-size: 6.4rem;
   line-height: 7.2rem;
   display: block;
@@ -2067,7 +2067,7 @@ About, Philosophy...
   transform: translateX(.2rem);
 }
 
-.specs li span,.specs li svg {
+.specs li span,.specs li i {
   font-size: 6.4rem;
   line-height: 1;
   display: block;
@@ -2086,7 +2086,7 @@ About, Philosophy...
 
 @media (min-width:1024px) {
   .specs li span,
-  .specs li svg,.specs li img {
+  .specs li i,.specs li img {
     float: left;
     margin-right: 2.4rem;
   }
@@ -2874,7 +2874,7 @@ object-fit to re-frame images rather than just stretch and resize them  === */
   z-index: 2;
 }
 
-[class*="card"] figure figcaption svg {
+[class*="card"] figure figcaption i {
   font-size: 1rem;
 }
 
@@ -3111,7 +3111,7 @@ input[type="submit"] {
   letter-spacing: .1rem;
 }
 
-.button svg {
+.button i {
   font-size: 2.4rem;
 }
 
