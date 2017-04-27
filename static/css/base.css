@@ -1375,11 +1375,11 @@ header[role=banner]:hover {
 }
 
 .logo a {
-  background: url(../images/logos/logo.svg) no-repeat 0 0;
-  background-size: 4.8rem;
-  width: 4.8rem;
-  height: 4.8rem;
+  background: url(../images/logos/logo.png) no-repeat 0 0;
+  background-size: 16.8rem;
+  width: 16.8rem;
   vertical-align: middle;
+  background-position: 0px 4px;
   float: left;
   text-indent: -4000px;
   /*If you remove text-indent */
