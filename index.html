@@ -20,6 +20,9 @@
     <!-- Svg icons -->
     <link rel="stylesheet" type='text/css' media='all' href="static/css/svg-icons.css">
 
+    <!-- Pygments syntax highlighting -->
+    <link rel="stylesheet" type='text/css' media='all' href="static/css/syntax.css">
+
     <!-- CSS Colors -->
     <link rel="stylesheet" type='text/css' media='all' href="static/css/colors.css">
 
@@ -239,20 +242,43 @@
           </div>
         </section>
 
+        <section>
+          <div class="wrap">
+            <div class="grid vertical-align">
+              <div class="column">
+                <h3><strong>A pattern language</strong></h3>
+                <p class="text-intro">Describe patterns over paths in the
+                   dependency tree</p>
+                <ul>
+                   <li>Describe root and path from root to beginning and end of path.</li>
+                   <li>Can use word embeddings to create soft matches such as <code>office</code> and <code>located</code></li>
+                   <li>Can create reusable components such as <code>located_in_place</code></li>
+                </ul>
+              </div>
+              <div class="column syntax">
+<pre><span></span><span class="c1"># Possessive noun phrase</span>
+<span class="c1"># eg &quot;Our office in China...&quot;</span>
+<span class="n">DepPath</span><span class="p">(</span>
+    <span class="n">head_to_start</span><span class="o">=</span><span class="p">[</span><span class="n">arc</span><span class="p">(</span><span class="n">poss</span><span class="p">,</span> <span class="n">_</span><span class="p">)],</span>
+    <span class="n">head</span><span class="o">=</span><span class="n">token</span><span class="p">(</span><span class="n">office</span><span class="p">),</span>
+    <span class="n">head_to_end</span><span class="o">=</span><span class="n">located_in_place</span>
+<span class="p">)</span>
+
+<span class="c1"># &quot;in X&quot;, &quot;located in X&quot;, etc</span>
+<span class="n">located_in_place</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">maybe</span><span class="p">([</span><span class="n">arc</span><span class="p">(</span><span class="n">acl</span><span class="p">,</span> <span class="n">located</span><span class="p">)])</span> <span class="o">+</span> <span class="n">in_place</span> <span class="o">|</span>
+    <span class="p">[</span><span class="n">arc</span><span class="p">(</span><span class="n">one_of</span><span class="p">(</span><span class="n">poss</span><span class="p">,</span> <span class="n">compound</span><span class="p">,</span> <span class="n">amod</span><span class="p">),</span> <span class="n">_</span><span class="p">)]</span> <span class="o">|</span>
+    <span class="p">[</span><span class="n">arc</span><span class="p">(</span><span class="n">amod</span><span class="p">,</span> <span class="n">located</span><span class="p">),</span> <span class="n">arc</span><span class="p">(</span><span class="n">npadvmod</span><span class="p">,</span> <span class="n">_</span><span class="p">)]</span>
+<span class="p">)</span>
+</pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </article>
-      <!-- end article -->
     </main>
-    <!-- end main -->
 
-   <!-- A global footer
-
-     <footer role="contentinfo">
-      <div class="wrap">
-        <p>An <a href="https://github.com/webslides/webslides">open source solution</a>, by <a href="https://twitter.com/webslides">@webslides</a>.</p>
-      </div>
-    </footer>  -->
-
-    <!-- Required -->
     <script src="static/js/webslides.js"></script>
     <script>
       window.ws = new WebSlides();
