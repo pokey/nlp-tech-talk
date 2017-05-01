@@ -1,0 +1,55 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg class="displacy" width="480" height="100" viewBox="0 0 480 100"
+     preserveAspectRatio="xMinYMax meet" data-format="spacy"
+     id="displacy-svg" style="font-family: inherit;" version="1.1"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+   <defs xmlns="http://www.w3.org/1999/xhtml">
+      <style type="text/css">
+         <![CDATA[
+         [data-dir="right"] {color: #00b6ea}
+         [data-dir="left"] {color: #ee8100}
+         .displacy { color: black; }
+         .displacy-label { font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1.1rem; line-height: normal; font-family: "Input Mono Compressed", Consolas, "Andale Mono", Menlo, Monaco, Courier, monospace; }
+         ]]>
+      </style>
+   </defs>
+   <text class="displacy-token" fill="currentColor" data-tag="" text-anchor="middle" y="85">
+      <tspan class="displacy-word" x="50" fill="currentColor" data-tag="">Our</tspan>
+      <tspan class="displacy-tag" x="50" dy="2em" fill="currentColor" data-tag=""/>
+   </text>
+   <text class="displacy-token" fill="currentColor" data-tag="" text-anchor="middle" y="85">
+      <tspan class="displacy-word" x="170" fill="currentColor" data-tag="">office</tspan>
+      <tspan class="displacy-tag" x="170" dy="2em" fill="currentColor" data-tag=""/>
+   </text>
+   <text class="displacy-token" fill="currentColor" data-tag="" text-anchor="middle" y="85">
+      <tspan class="displacy-word" x="290" fill="currentColor" data-tag="">in</tspan>
+      <tspan class="displacy-tag" x="290" dy="2em" fill="currentColor" data-tag=""/>
+   </text>
+   <text class="displacy-token" fill="currentColor" data-tag="" text-anchor="middle" y="85">
+      <tspan class="displacy-word" x="410" fill="currentColor" data-tag="">Germany</tspan>
+      <tspan class="displacy-tag" x="410" dy="2em" fill="currentColor" data-tag=""/>
+   </text>
+   <g class="displacy-arrow" data-dir="right" data-label="prep" data-direction="toEnd">
+      <path class="displacy-arc" d="M170,65 C170,5 290,5 290,65" stroke-width="2px" fill="none" stroke="currentColor" data-dir="right" data-label="prep" id="arrow-b04yg4mr"/>
+      <text dy="1em">
+         <textPath class="displacy-label" startOffset="50%" fill="currentColor" text-anchor="middle" data-label="prep" data-dir="right" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-b04yg4mr">prep</textPath>
+      </text>
+      <path class="displacy-arrowhead" d="M290,67 L296,57 284,57" fill="currentColor" data-label="prep" data-dir="right"/>
+   </g>
+   <g class="displacy-arrow" data-dir="right" data-label="pobj" data-direction="toEnd">
+      <path class="displacy-arc" d="M290,65 C290,5 410,5 410,65" stroke-width="2px" fill="none" stroke="currentColor" data-dir="right" data-label="pobj" id="arrow-epr8gfws"/>
+      <text dy="1em">
+         <textPath class="displacy-label" startOffset="50%" fill="currentColor" text-anchor="middle" data-label="pobj" data-dir="right" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-epr8gfws">pobj</textPath>
+      </text>
+      <path class="displacy-arrowhead" d="M410,67 L416,57 404,57" fill="currentColor" data-label="pobj" data-dir="right"/>
+   </g>
+   <g class="displacy-arrow" data-dir="left" data-label="poss" data-direction="toStart">
+      <path class="displacy-arc" d="M50,65 C50,5 170,5 170,65" stroke-width="2px" fill="none" stroke="currentColor" data-dir="left" data-label="poss" id="arrow-6num8b96"/>
+      <text dy="1em">
+         <textPath class="displacy-label" startOffset="50%" fill="currentColor" text-anchor="middle" data-label="poss" data-dir="left" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-6num8b96">poss</textPath>
+      </text>
+      <path class="displacy-arrowhead" d="M50,67 L44,57 56,57" fill="currentColor" data-label="poss" data-dir="left"/>
+   </g>
+</svg>
