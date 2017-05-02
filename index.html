@@ -286,12 +286,12 @@
 
         <!-- Relation extraction -->
         <section>
-           <div class="wrap">
+           <div class="wrap size-60 bg-white radius">
               <h2>Relation extraction</h2>
               <p>Given the parsed sentence, we'd like to fit it into the
                  knowledge graph</p>
               <hr>
-              <div class="transformation vertical-align size-60">
+              <div class="transformation vertical-align">
                  <div class="column">
                     <img src="static/images/dep-parse.svg"
                          alt="Dep parsed sentence"/>
@@ -310,6 +310,30 @@
                  </div>
               </div>
            </div>
+        </section>
+
+        <!-- Relation extraction approach -->
+        <section>
+          <div class="wrap">
+            <div class="grid vertical-align">
+              <div class="column">
+                <h3><strong>Dependency tree paths</strong></h3>
+                <ul class="description">
+                   <li>Once text is parsed, we find path between entity and
+                      service provider</li>
+                   <li>Desired sentences will have specific grammatical
+                      patterns</li>
+                   <li>We need a way to describe the set of grammatical
+                      patterns that are indicative of desired relationship</li>
+                </ul>
+              </div>
+              <div class="column aligncenter">
+                 <div class="bg-white radius">
+                    <img src="static/images/path.svg" alt="Dependency tree path">
+                 </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         <!-- Word vectors -->
@@ -343,30 +367,6 @@
             <h3 class="bg-trans-dark radius">
 					<a target="_blank" href="http://localhost:6006/">Word embedding demo</a>
 				</h3>
-          </div>
-        </section>
-
-        <!-- Relation extraction approach -->
-        <section>
-          <div class="wrap">
-            <div class="grid vertical-align">
-              <div class="column aligncenter">
-                 <div class="bg-white radius">
-                    <img src="static/images/path.svg" alt="Dependency tree path">
-                 </div>
-              </div>
-              <div class="column">
-                <h3><strong>Dependency tree paths</strong></h3>
-                <ul class="description">
-                   <li>Once text is parsed, we find path between entity and
-                      service provider</li>
-                   <li>Desired sentences will have specific grammatical
-                      patterns</li>
-                   <li>We need a way to describe the set of grammatical
-                      patterns that are indicative of desired relationship</li>
-                </ul>
-              </div>
-            </div>
           </div>
         </section>
 
