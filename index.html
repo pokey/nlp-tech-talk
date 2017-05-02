@@ -17,6 +17,9 @@
     <!-- CSS Base -->
     <link rel="stylesheet" type='text/css' media='all' href="static/css/base.css">
 
+    <!-- CSS Base -->
+    <link rel="stylesheet" type='text/css' media='all' href="static/css/transformation.css">
+
     <!-- Svg icons -->
     <link rel="stylesheet" type='text/css' media='all' href="static/css/svg-icons.css">
 
@@ -288,20 +291,22 @@
               <p>Given the parsed sentence, we'd like to fit it into the
                  knowledge graph</p>
               <hr>
-              <div class="grid vertical-align size-50">
+              <div class="transformation vertical-align size-60">
                  <div class="column">
                     <img src="static/images/dep-parse.svg"
                          alt="Dep parsed sentence"/>
                     <code>We are located in Germany.</code>
                  </div>
-                 <div class="column aligncenter">
+                 <div class="column arrow aligncenter">
                     <h1>
                        <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                     </h1>
                  </div>
                  <div class="column">
-                    <img src="static/images/relation.svg"
-                         alt="Relation"/>
+                    <div class="relation">
+                       <img src="static/images/relation.svg"
+                            alt="Relation"/>
+                    </div>
                  </div>
               </div>
            </div>
