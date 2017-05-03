@@ -30,7 +30,7 @@
                    fill="currentColor" text-anchor="middle"
                    xmlns:xlink="http://www.w3.org/1999/xlink"
                    xlink:href="#arrow">
-            located
+            location
          </textPath>
       </text>
       <path class="relation-arrowhead" d="M288,25 l-10,-6 0,12"
