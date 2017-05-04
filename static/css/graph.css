@@ -1,0 +1,35 @@
+.node {
+  stroke: #fff;
+  fill:#8a8a8a;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+  stroke-width: 1px;
+}
+
+marker {
+   stroke: #999;
+   fill:rgba(124,240,10,0);
+}
+
+.node-text {
+  font: 11px sans-serif;
+  fill:black;
+}
+
+.link-text {
+  font: 9px sans-serif;
+  fill:grey;
+}
+
+svg {
+   border:1px solid black;
+}
+
+.panel-body {
+   width: 800px;
+   height: 800px;
+}

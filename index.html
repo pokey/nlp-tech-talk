@@ -26,6 +26,9 @@
     <!-- Pygments syntax highlighting -->
     <link rel="stylesheet" type='text/css' media='all' href="static/css/syntax.css">
 
+    <!-- Knowledge graph -->
+    <link rel="stylesheet" type='text/css' media='all' href="static/css/graph.css">
+
     <!-- CSS Colors -->
     <link rel="stylesheet" type='text/css' media='all' href="static/css/colors.css">
 
@@ -284,6 +287,21 @@
           </div>
         </section>
 
+        <!-- Knowledge graph -->
+        <section>
+           <div class="card-50">
+              <div id="svg-body" class="panel-body"></div>
+              <div class="flex-content">
+                 <h2>Knowledge graph</h2>
+                 <ul class="description">
+                    <li>Lorem</li>
+                    <li>ipsem</li>
+                    <li>lorem</li>
+                 </ul>
+              </div>
+           </div>
+        </section>
+
         <!-- Relation extraction -->
         <section>
            <div class="wrap size-60 bg-white">
@@ -426,6 +444,9 @@
     <script>
       window.ws = new WebSlides();
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="static/js/graph.js"></script>
 
   </body>
 </html>
