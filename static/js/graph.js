@@ -131,15 +131,6 @@ function update(){
     ;
 }
 
-var triples = [
-  {subject:"gspr:Globality",        predicate:"gspo:location",      object:"gspr:Menlo_Park"},
-  {subject:"gspr:Globality",        predicate:"gspo:hasPastClient", object:"gspr:Coca_Cola"},
-  {subject:"gspr:Globality",        predicate:"gspo:hasPastClient", object:"gspr:Latham_&_Watkins"},
-  {subject:"gspr:Latham_&_Watkins", predicate:"gspo:industry",      object:"gspr:Legal"},
-  {subject:"gspr:Coca_Cola",        predicate:"gspo:location",      object:"gspr:Atlanta,_Georgia"},
-  {subject:"gspr:Coca_Cola",        predicate:"gspo:foundingDate",  object:"1886"},
-];
-
 var svg = d3.select("#svg-body").append("svg")
   .attr("width", 800)
   .attr("height", 600)
