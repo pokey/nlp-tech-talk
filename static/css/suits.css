@@ -1,0 +1,55 @@
+.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+.textpath {
+    fill: none;
+    stroke: none;
+}
+
+.predicate.type {
+   fill: green;
+}
+
+.predicate {
+   fill: black;
+   font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1.1rem; line-height: normal; font-family: "Input Mono Compressed", Consolas, "Andale Mono", Menlo, Monaco, Courier, monospace; 
+   font-size: 12px;
+}
+
+#arrowheadtype {
+  fill: green;
+}
+
+.link {
+  stroke-width: 2px;
+}
+
+.link.type {
+  stroke: green;
+}
+
+circle {
+  fill: #ccc;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+#svg-body {
+   padding: 0px;
+}
+
+text {
+  font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1.1rem; line-height: normal; font-family: "Input Mono Compressed", Consolas, "Andale Mono", Menlo, Monaco, Courier, monospace; 
+  font-size: 12px;
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+text.shadow {
+  stroke: #fff;
+  stroke-width: 3px;
+  stroke-opacity: .8;
+}

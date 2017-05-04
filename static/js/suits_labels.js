@@ -1,8 +1,9 @@
-// http://blog.thomsonreuters.com/index.php/mobile-patent-suits-graphic-of-the-day/
+// Adapted from http://stackoverflow.com/a/18319089/2605678
 
 var triples = [
   {subject:"gspr:Globality",        predicate:"gspo:location",      object:"gspr:Menlo_Park"},
   {subject:"gspr:Menlo_Park",       predicate:"rdf:type",           object:"gspr:City"},
+  {subject:"gspr:Atlanta,_Georgia", predicate:"rdf:type",           object:"gspr:City"},
   {subject:"gspr:Globality",        predicate:"gspo:hasPastClient", object:"gspr:Coca_Cola"},
   {subject:"gspr:Globality",        predicate:"gspo:hasPastClient", object:"gspr:Latham_&_Watkins"},
   {subject:"gspr:Latham_&_Watkins", predicate:"gspo:industry",      object:"gspr:Legal"},
@@ -18,21 +19,22 @@ triples.forEach(function(triple) {
   triple.target = nodes[triple.object] || (nodes[triple.object] = {uri: triple.object});
 });
 
-var w = 800,
+var w = 600,
     h = 600;
 
 var force = d3.layout.force()
     .nodes(d3.values(nodes))
     .links(triples)
     .size([w, h])
-    .linkDistance(120)
-    .charge(-300)
+    .linkDistance(180)
+    .charge(-2000)
     .on("tick", tick)
     .start();
 
 var svg = d3.select("#svg-body").append("svg:svg")
-    .attr("width", w)
-    .attr("height", h);
+    .attr("class", "bg-white")
+    .attr("height", "100%")
+    .attr("viewBox", "0 0 " + w + " " + h);
 
 // Per-type markers, as they don't inherit styles.
 svg.append("svg:defs").selectAll("marker")
@@ -41,7 +43,7 @@ svg.append("svg:defs").selectAll("marker")
     .attr("id", String)
     .attr("viewBox", "0 -5 10 10")
     .attr("refX", 15)
-    .attr("refY", -1.5)
+    .attr("refY", -0.5)
     .attr("markerWidth", 6)
     .attr("markerHeight", 6)
     .attr("orient", "auto")
@@ -90,13 +92,15 @@ text.append("svg:text")
 var path_label = svg.append("svg:g").selectAll(".path_label")
     .data(force.links())
   .enter().append("svg:text")
+    .attr("dy", "-.5em")
     .attr("class", "path_label")
     .append("svg:textPath")
+      .attr("class", function (d) {
+        return "predicate " + (d.predicate == "rdf:type" ? "type" : "");
+      })
       .attr("startOffset", "50%")
       .attr("text-anchor", "middle")
       .attr("xlink:href", function(d) { return "#" + d.source.index + "_" + d.target.index; })
-      .style("fill", "#000")
-      .style("font-family", "Arial")
       .text(function(d) { return d.predicate; });
 
     function arcPath(leftHand, d) {
