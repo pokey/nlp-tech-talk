@@ -1,14 +1,14 @@
 // Adapted from http://stackoverflow.com/a/18319089/2605678
 
 var triples = [
-  {subject:"gspr:Globality",        predicate:"gspo:location",      object:"gspr:Menlo_Park"},
-  {subject:"gspr:Menlo_Park",       predicate:"rdf:type",           object:"gspr:City"},
-  {subject:"gspr:Atlanta,_Georgia", predicate:"rdf:type",           object:"gspr:City"},
-  {subject:"gspr:Globality",        predicate:"gspo:hasPastClient", object:"gspr:Coca_Cola"},
-  {subject:"gspr:Globality",        predicate:"gspo:hasPastClient", object:"gspr:Latham_&_Watkins"},
-  {subject:"gspr:Latham_&_Watkins", predicate:"gspo:industry",      object:"gspr:Legal"},
-  {subject:"gspr:Coca_Cola",        predicate:"gspo:location",      object:"gspr:Atlanta,_Georgia"},
-  {subject:"gspr:Coca_Cola",        predicate:"gspo:foundingDate",  object:"1886"},
+  {subject:"Globality",        predicate:"location",      object:"Menlo_Park"},
+  {subject:"Menlo_Park",       predicate:"type",          object:"City"},
+  {subject:"Atlanta,_Georgia", predicate:"type",          object:"City"},
+  {subject:"Globality",        predicate:"hasPastClient", object:"Coca_Cola"},
+  {subject:"Globality",        predicate:"hasPastClient", object:"Latham_&_Watkins"},
+  {subject:"Latham_&_Watkins", predicate:"industry",      object:"Legal"},
+  {subject:"Coca_Cola",        predicate:"location",      object:"Atlanta,_Georgia"},
+  {subject:"Coca_Cola",        predicate:"foundingDate",  object:"1886"},
 ];
 
 var nodes = {};
@@ -27,7 +27,7 @@ var force = d3.layout.force()
     .links(triples)
     .size([w, h])
     .linkDistance(180)
-    .charge(-2000)
+    .charge(-1500)
     .on("tick", tick)
     .start();
 
@@ -57,10 +57,10 @@ var link = svg.append("svg:g").selectAll("g.link")
 
 var linkPath = link.append("svg:path")
     .attr("class", function(d) {
-      return "link " + (d.predicate == "rdf:type" ? "type" : "");
+      return "link " + (d.predicate == "type" ? "type" : "");
     })
     .attr("marker-end", function(d) {
-      return "url(#arrowhead" + (d.predicate == "rdf:type" ? "type" : "") + ")";
+      return "url(#arrowhead" + (d.predicate == "type" ? "type" : "") + ")";
     });
 
 var textPath = link.append("svg:path")
@@ -96,7 +96,7 @@ var path_label = svg.append("svg:g").selectAll(".path_label")
     .attr("class", "path_label")
     .append("svg:textPath")
       .attr("class", function (d) {
-        return "predicate " + (d.predicate == "rdf:type" ? "type" : "");
+        return "predicate " + (d.predicate == "type" ? "type" : "");
       })
       .attr("startOffset", "50%")
       .attr("text-anchor", "middle")
