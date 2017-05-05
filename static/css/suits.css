@@ -4,13 +4,9 @@
   stroke-width: 1.5px;
 }
 
-.textpath {
+.textPath {
     fill: none;
     stroke: none;
-}
-
-.predicate.type {
-   fill: green;
 }
 
 .predicate {
@@ -19,16 +15,8 @@
    font-size: 12px;
 }
 
-#arrowheadtype {
-  fill: green;
-}
-
 .link {
   stroke-width: 2px;
-}
-
-.link.type {
-  stroke: green;
 }
 
 circle {

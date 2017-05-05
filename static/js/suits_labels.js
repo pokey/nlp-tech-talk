@@ -22,105 +22,191 @@ var nodes = {
   "Legal": {uri: "Legal", x: 528.3838046366114, y: 394.1161344790291}
 };
 
-// Compute the distinct nodes from the links.
-triples.forEach(function(triple) {
-  triple.source = nodes[triple.subject] || (nodes[triple.subject] = {uri: triple.subject});
-  triple.target = nodes[triple.object] || (nodes[triple.object] = {uri: triple.object});
-});
-
 var w = 600,
     h = 600;
 
-var force = d3.layout.force()
-    .nodes(d3.values(nodes))
-    .links(triples)
-    .size([w, h])
-    .linkDistance(180)
-    .charge(-1500)
-    .on("tick", tick)
-    .start();
+var centerX = w / 2;
+var centerY = h / 2;
+
+var simulation = d3.forceSimulation()
+    .force("charge", d3.forceManyBody().strength(-2000))
+    .force("link", d3.forceLink().distance(180).iterations(5))
+    .force("center", d3.forceCenter(centerX, centerY))
+    .force("x", d3.forceX(centerX).strength(0.25))
+    .force("y", d3.forceY(centerY).strength(0.25))
+    .on("tick", tick);
 
 var svg = d3.select("#svg-body").append("svg:svg")
     .attr("class", "bg-white")
     .attr("height", "100%")
     .attr("viewBox", "0 0 " + w + " " + h);
 
-// Per-type markers, as they don't inherit styles.
-svg.append("svg:defs").selectAll("marker")
-    .data(["arrowhead", "arrowheadtype"])
-  .enter().append("svg:marker")
-    .attr("id", String)
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 15)
-    .attr("refY", -0.5)
-    .attr("markerWidth", 6)
-    .attr("markerHeight", 6)
-    .attr("orient", "auto")
-  .append("svg:path")
-    .attr("d", "M0,-5L10,0L0,5");
+var defs = svg.append("defs");
+var lines = svg.append('g');
+var circles = svg.append('g');
 
-var link = svg.append("svg:g").selectAll("g.link")
-    .data(force.links())
-  .enter().append('g')
-    .attr('class', 'link');
+function dragstarted(d) {
+  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x, d.fy = d.y;
+}
 
-var linkPath = link.append("svg:path")
-    .attr("class", function(d) {
-      return "link " + (d.predicate == "type" ? "type" : "");
-    })
-    .attr("marker-end", function(d) {
-      return "url(#arrowhead" + (d.predicate == "type" ? "type" : "") + ")";
-    });
+function dragged(d) {
+  d.fx = d3.event.x, d.fy = d3.event.y;
+}
 
-var textPath = link.append("svg:path")
-    .attr("id", function(d) { return d.source.index + "_" + d.target.index; })
-    .attr("class", "textpath");
+function dragended(d) {
+  if (!d3.event.active) simulation.alphaTarget(0);
+  d.fx = null, d.fy = null;
+}
 
-var circle = svg.append("svg:g").selectAll("circle")
-    .data(force.nodes())
-  .enter().append("svg:circle")
-    .attr("r", 6)
-    .call(force.drag);
+var linkPath, textPath, circle, text;
 
-var text = svg.append("svg:g").selectAll("g")
-    .data(force.nodes())
-  .enter().append("svg:g");
+var tripleId = 0;
 
-// A copy of the text with a thick white stroke for legibility.
-text.append("svg:text")
-    .attr("x", 8)
-    .attr("y", ".31em")
-    .attr("class", "shadow")
-    .text(function(d) { return d.uri; });
+function linkColor(d) {
+  return (d.predicate == "type" ? "green" : "black");
+}
 
-text.append("svg:text")
-    .attr("x", 8)
-    .attr("y", ".31em")
-    .text(function(d) { return d.uri; });
+function linkKey(d) {
+  return d.id;
+}
 
-var path_label = svg.append("svg:g").selectAll(".path_label")
-    .data(force.links())
-  .enter().append("svg:text")
-    .attr("dy", "-.5em")
-    .attr("class", "path_label")
-    .append("svg:textPath")
-      .attr("class", function (d) {
-        return "predicate " + (d.predicate == "type" ? "type" : "");
+function nodeKey(d) {
+  return d.uri;
+}
+
+function update(isFirst) {
+  // Compute the distinct nodes from the links.
+  triples.forEach(function(triple) {
+    triple.source = nodes[triple.subject] || (nodes[triple.subject] = {uri: triple.subject});
+    triple.target = nodes[triple.object] || (nodes[triple.object] = {uri: triple.object});
+    if (!('id' in triple)) {
+      triple.id = tripleId++;
+    }
+  });
+
+  var links = triples;
+  simulation
+    .nodes(d3.values(nodes));
+  simulation.force("link")
+    .links(links);
+  simulation
+    .alpha(0.1)
+    .alphaTarget(0)
+    .restart();
+
+  var t = d3.transition()
+      .duration(5000);
+
+  var markers = defs.selectAll('marker').data(links, linkKey);
+
+  var initialColor = isFirst ? linkColor : 'red';
+  var animation = isFirst ? '' : 'none';
+
+  markers.enter()
+    .append("marker")
+      .attr("id", function(d) { return "arrowhead_" + d.id; })
+      .attr("viewBox", "0 -5 10 10")
+      .attr("refX", 15)
+      .attr("refY", -0.5)
+      .attr("markerWidth", 6)
+      .attr("markerHeight", 6)
+      .attr("orient", "auto")
+      .style('animation', animation)
+    .append("path")
+      .attr("d", "M0,-5L10,0L0,5")
+      .style('fill', initialColor)
+      .style('animation', animation)
+    .transition(t)
+      .style('fill', linkColor);
+
+  var link = lines.selectAll("g.link").data(links, linkKey);
+  var linkEnter = link.enter()
+    .append('g')
+    .attr('class', 'link')
+    .style('animation', animation);
+
+  linkEnter.append("path")
+      .attr("class", "link")
+      .attr("marker-end", function(d) {
+        return "url(#arrowhead_" + d.id + ")";
       })
+      .style('stroke', initialColor)
+      .text(function(d) { return d.predicate; })
+      .style('animation', animation)
+    .transition(t)
+      .style('stroke', linkColor);
+
+  linkEnter.append("path")
+    .attr("id", function(d) { return d.source.index + "_" + d.target.index; })
+    .attr("class", "textPath");
+
+  link = linkEnter.merge(link);
+  linkPath = link.select('path.link');
+  textPath = link.select('path.textPath');
+
+  circle = circles.selectAll("circle")
+      .data(simulation.nodes(), nodeKey);
+  circleEnter = circle.enter()
+    .append("circle")
+      .attr("r", 6)
+      .call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended)
+      );
+  circle = circleEnter.merge(circle);
+
+  text = svg.selectAll("g.text")
+    .data(simulation.nodes(), nodeKey);
+  textEnter = text.enter()
+    .append("g")
+      .attr('class', 'text')
+      .style('animation', animation);
+
+  // A copy of the text with a thick white stroke for legibility.
+  textEnter.append("text")
+      .attr("x", 8)
+      .attr("y", ".31em")
+      .attr("class", "shadow")
+      .text(function(d) { return d.uri; });
+
+  textEnter.append("text")
+      .attr("x", 8)
+      .attr("y", ".31em")
+      .text(function(d) { return d.uri; });
+
+  text = textEnter.merge(text);
+
+  svg.selectAll("text.path_label")
+    .data(links, linkKey)
+    .enter().append("text")
+      .attr("dy", "-.5em")
+      .attr("class", "path_label")
+      .style('animation', animation)
+    .append("textPath")
+      .attr("class", "predicate")
       .attr("startOffset", "50%")
       .attr("text-anchor", "middle")
       .attr("xlink:href", function(d) { return "#" + d.source.index + "_" + d.target.index; })
-      .text(function(d) { return d.predicate; });
+      .style('fill', initialColor)
+      .text(function(d) { return d.predicate; })
+      .style('animation', animation)
+    .transition(t)
+      .style('fill', linkColor);
 
-    function arcPath(leftHand, d) {
-      var start = leftHand ? d.source : d.target,
-          end = leftHand ? d.target : d.source,
-          dx = end.x - start.x,
-          dy = end.y - start.y,
-          dr = Math.sqrt(dx * dx + dy * dy),
-          sweep = leftHand ? 1 : 0;
-      return "M" + start.x + "," + start.y + "A" + dr + "," + dr + " 0 0," + sweep + " " + end.x + "," + end.y;
-    }
+  simulation.restart();
+}
+
+function arcPath(leftHand, d) {
+  var start = leftHand ? d.source : d.target,
+      end = leftHand ? d.target : d.source,
+      dx = end.x - start.x,
+      dy = end.y - start.y,
+      dr = Math.sqrt(dx * dx + dy * dy),
+      sweep = leftHand ? 1 : 0;
+  return "M" + start.x + "," + start.y + "A" + dr + "," + dr + " 0 0," + sweep + " " + end.x + "," + end.y;
+}
 
 // Use elliptical arc path segments to doubly-encode directionality.
 function tick() {
@@ -141,4 +227,11 @@ function tick() {
   });
 }
 
+function pushTriple() {
+  triples.push(
+    {subject:"Latham_&_Watkins", predicate:"hasPastClient", object:"Coca_Cola"}
+  );
+  update(false);
+}
 
+update(true);
