@@ -11,7 +11,16 @@ var triples = [
   {subject:"Coca_Cola",        predicate:"foundingDate",  object:"1886"},
 ];
 
-var nodes = {};
+var nodes = {
+  "1886": {uri: "1886", x: 326.07842908129186, y: 45.67108617475361},
+  "Globality": {uri: "Globality", x: 324.1976344959891, y: 307.99888027136035},
+  "Menlo_Park": {uri: "Menlo_Park", x: 322.1923622804831, y: 495.67554647562184},
+  "City": {uri: "City", x: 140.19257596576654, y: 462.96650749465084},
+  "Atlanta,_Georgia": {uri: "Atlanta,_Georgia", x: 60.49266279476002, y: 294.4064534254175},
+  "Coca_Cola": {uri: "Coca_Cola", x: 196.10474044637402, y: 172.54335370978723},
+  "Latham_&_Watkins": {uri: "Latham_&_Watkins", x: 485.3261715837793, y: 214.7531640780634},
+  "Legal": {uri: "Legal", x: 528.3838046366114, y: 394.1161344790291}
+};
 
 // Compute the distinct nodes from the links.
 triples.forEach(function(triple) {
