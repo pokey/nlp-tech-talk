@@ -75,6 +75,14 @@ function nodeKey(d) {
   return d.uri;
 }
 
+function pathId(d) {
+  return d.source.index + "_" + d.target.index; 
+}
+
+function arrowheadId(d) {
+  return "arrowhead_" + d.id; 
+}
+
 function update(isFirst) {
   // Compute the distinct nodes from the links.
   triples.forEach(function(triple) {
@@ -86,14 +94,14 @@ function update(isFirst) {
   });
 
   var links = triples;
+
   simulation
-    .nodes(d3.values(nodes));
-  simulation.force("link")
-    .links(links);
-  simulation
-    .alpha(0.1)
-    .alphaTarget(0)
-    .restart();
+      .nodes(d3.values(nodes))
+      .alpha(0.1)
+      .alphaTarget(0)
+      .restart()
+    .force("link")
+      .links(links);
 
   var t = d3.transition()
       .duration(5000);
@@ -105,7 +113,7 @@ function update(isFirst) {
 
   markers.enter()
     .append("marker")
-      .attr("id", function(d) { return "arrowhead_" + d.id; })
+      .attr("id", arrowheadId)
       .attr("viewBox", "0 -5 10 10")
       .attr("refX", 15)
       .attr("refY", -0.5)
@@ -121,15 +129,16 @@ function update(isFirst) {
       .style('fill', linkColor);
 
   var link = lines.selectAll("g.link").data(links, linkKey);
+
   var linkEnter = link.enter()
     .append('g')
-    .attr('class', 'link')
-    .style('animation', animation);
+      .attr('class', 'link')
+      .style('animation', animation);
 
   linkEnter.append("path")
       .attr("class", "link")
       .attr("marker-end", function(d) {
-        return "url(#arrowhead_" + d.id + ")";
+        return "url(#" + arrowheadId(d) + ")";
       })
       .style('stroke', initialColor)
       .text(function(d) { return d.predicate; })
@@ -138,8 +147,8 @@ function update(isFirst) {
       .style('stroke', linkColor);
 
   linkEnter.append("path")
-    .attr("id", function(d) { return d.source.index + "_" + d.target.index; })
-    .attr("class", "textPath");
+      .attr("id", pathId)
+      .attr("class", "textPath");
 
   link = linkEnter.merge(link);
   linkPath = link.select('path.link');
@@ -188,7 +197,7 @@ function update(isFirst) {
       .attr("class", "predicate")
       .attr("startOffset", "50%")
       .attr("text-anchor", "middle")
-      .attr("xlink:href", function(d) { return "#" + d.source.index + "_" + d.target.index; })
+      .attr("xlink:href", function(d) { return "#" + pathId(d); })
       .style('fill', initialColor)
       .text(function(d) { return d.predicate; })
       .style('animation', animation)
