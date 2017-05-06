@@ -32,6 +32,7 @@
     <!-- CSS Colors -->
     <link rel="stylesheet" type='text/css' media='all' href="static/css/colors.css">
 
+    <!-- Font awesome -->
     <script src="https://use.fontawesome.com/04f484829f.js"></script>
 
     <!-- SOCIAL CARDS -->
@@ -290,17 +291,37 @@
         <!-- Knowledge graph -->
         <section class="fullscreen">
            <div class="card-50">
-              <div id="svg-body" class="flex-content"></div>
+              <div id="graph" class="graph flex-content"></div>
               <div class="flex-content">
                  <h2>Knowledge graph</h2>
                  <ul class="description">
-                    <li onclick="pushTriple()">Lorem</li>
-                    <li>ipsem</li>
-                    <li>lorem</li>
+                    <li>Knowledge graph is a collection of relations between
+                       entities.</li>
+                    <li>Contains information useful for matching</li>
+                    <li>Given a sentence, we'd like to find relevant entities
+                       in knowledge graph and add new relations</li>
                  </ul>
               </div>
            </div>
         </section>
+
+        <!-- Knowledge graph -->
+        <section class="no-animate fullscreen">
+           <div class="card-50">
+              <div id="extraction" class="graph flex-content"></div>
+              <div class="flex-content animate">
+                 <h2>Relation extraction</h2>
+                 <ul class="description">
+                    <li onclick="extractionGraph.pushTriple()">Knowledge graph is a collection of relations between
+                       entities.</li>
+                    <li>Contains information useful for matching</li>
+                    <li>Given a sentence, we'd like to find relevant entities
+                       in knowledge graph and add new relations</li>
+                 </ul>
+              </div>
+           </div>
+        </section>
+        <!-- <li onclick="pushTriple()">Lorem</li> -->
 
         <!-- Relation extraction -->
         <section>

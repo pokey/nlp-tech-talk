@@ -25,8 +25,18 @@ circle {
   stroke-width: 1.5px;
 }
 
-#svg-body {
+.card-50 .graph.flex-content {
    padding: 0px;
+}
+
+.no-animate * {
+   -webkit-animation: none;
+   animation: none;
+}
+
+.animate * {
+  -webkit-animation: fadeIn 0.6s ease-in-out;
+  animation: fadeIn 0.6s ease-in-out;
 }
 
 text {

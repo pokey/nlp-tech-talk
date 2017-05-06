@@ -1,6 +1,6 @@
 // Adapted from http://stackoverflow.com/a/18319089/2605678
 
-var triples = [
+var TRIPLES = [
   {subject:"Globality",        predicate:"location",      object:"Menlo_Park"},
   {subject:"Menlo_Park",       predicate:"type",          object:"City"},
   {subject:"Atlanta,_Georgia", predicate:"type",          object:"City"},
@@ -11,7 +11,7 @@ var triples = [
   {subject:"Coca_Cola",        predicate:"foundingDate",  object:"1886"},
 ];
 
-var nodes = {
+var NODES = {
   "1886": {uri: "1886", x: 326.07842908129186, y: 45.67108617475361},
   "Globality": {uri: "Globality", x: 324.1976344959891, y: 307.99888027136035},
   "Menlo_Park": {uri: "Menlo_Park", x: 322.1923622804831, y: 495.67554647562184},
@@ -22,231 +22,246 @@ var nodes = {
   "Legal": {uri: "Legal", x: 528.3838046366114, y: 394.1161344790291}
 };
 
+function deepCopy(o) {
+  return JSON.parse(JSON.stringify(o));
+}
+
 var w = 600,
     h = 600;
 
 var centerX = w / 2;
 var centerY = h / 2;
 
-var simulation = d3.forceSimulation()
-    .force("charge", d3.forceManyBody().strength(-2000))
-    .force("link", d3.forceLink().distance(180).iterations(5))
-    .force("center", d3.forceCenter(centerX, centerY))
-    .force("x", d3.forceX(centerX).strength(0.25))
-    .force("y", d3.forceY(centerY).strength(0.25))
-    .on("tick", tick);
+function makeGraph(elemId) {
+  nodes = deepCopy(NODES);
+  triples = deepCopy(TRIPLES);
 
-var svg = d3.select("#svg-body").append("svg:svg")
-    .attr("class", "bg-white")
-    .attr("height", "100%")
-    .attr("viewBox", "0 0 " + w + " " + h);
+  var simulation = d3.forceSimulation()
+      .force("charge", d3.forceManyBody().strength(-2000))
+      .force("link", d3.forceLink().distance(180).iterations(5))
+      .force("center", d3.forceCenter(centerX, centerY))
+      .force("x", d3.forceX(centerX).strength(0.25))
+      .force("y", d3.forceY(centerY).strength(0.25))
+      .on("tick", tick);
 
-var defs = svg.append("defs");
-var lines = svg.append('g');
-var circles = svg.append('g');
+  var svg = d3.select("#" + elemId).append("svg:svg")
+      .attr("class", "bg-white")
+      .attr("height", "100%")
+      .attr("viewBox", "0 0 " + w + " " + h);
 
-function dragstarted(d) {
-  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-  d.fx = d.x, d.fy = d.y;
-}
+  var defs = svg.append("defs");
+  var lines = svg.append('g');
+  var circles = svg.append('g');
 
-function dragged(d) {
-  d.fx = d3.event.x, d.fy = d3.event.y;
-}
+  function dragstarted(d) {
+    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x, d.fy = d.y;
+  }
 
-function dragended(d) {
-  if (!d3.event.active) simulation.alphaTarget(0);
-  d.fx = null, d.fy = null;
-}
+  function dragged(d) {
+    d.fx = d3.event.x, d.fy = d3.event.y;
+  }
 
-var linkPath, textPath, circle, text;
+  function dragended(d) {
+    if (!d3.event.active) simulation.alphaTarget(0);
+    d.fx = null, d.fy = null;
+  }
 
-var tripleId = 0;
+  var linkPath, textPath, circle, text;
 
-var color = d3.scaleOrdinal(d3.schemeSet1);
+  var tripleId = 0;
 
-function linkColor(d) {
-  return color(d.predicate);
-}
+  var color = d3.scaleOrdinal(d3.schemeSet1);
 
-function linkKey(d) {
-  return d.id;
-}
+  function linkColor(d) {
+    return color(d.predicate);
+  }
 
-function nodeKey(d) {
-  return d.uri;
-}
+  function linkKey(d) {
+    return d.id;
+  }
 
-function pathId(d) {
-  return d.source.index + "_" + d.target.index; 
-}
+  function nodeKey(d) {
+    return d.uri;
+  }
 
-function arrowheadId(d) {
-  return "arrowhead_" + d.id; 
-}
+  function pathId(d) {
+    return d.source.index + "_" + d.target.index; 
+  }
 
-function update(isFirst) {
-  // Compute the distinct nodes from the links.
-  triples.forEach(function(triple) {
-    triple.source = nodes[triple.subject] || (nodes[triple.subject] = {uri: triple.subject});
-    triple.target = nodes[triple.object] || (nodes[triple.object] = {uri: triple.object});
-    if (!('id' in triple)) {
-      triple.id = tripleId++;
-    }
-  });
+  function arrowheadId(d) {
+    return "arrowhead_" + d.id; 
+  }
 
-  var links = triples;
+  function update(isFirst) {
+    // Compute the distinct nodes from the links.
+    triples.forEach(function(triple) {
+      triple.source = nodes[triple.subject] || (nodes[triple.subject] = {uri: triple.subject});
+      triple.target = nodes[triple.object] || (nodes[triple.object] = {uri: triple.object});
+      if (!('id' in triple)) {
+        triple.id = tripleId++;
+      }
+    });
 
-  simulation
-      .nodes(d3.values(nodes))
-      .alpha(0.1)
-      .alphaTarget(0)
-      .restart()
-    .force("link")
-      .links(links);
+    var links = triples;
 
-  var t = d3.transition()
-      .ease(d3.easeBounce)
-      .duration(5000);
+    simulation
+        .nodes(d3.values(nodes))
+        .alpha(0.1)
+        .alphaTarget(0)
+        .restart()
+      .force("link")
+        .links(links);
 
-  var markers = defs.selectAll('marker').data(links, linkKey);
+    var t = d3.transition()
+        .ease(d3.easeBounce)
+        .duration(5000);
 
-  // Disable animation from css parents when we are adding a link
-  var animation = isFirst ? '' : 'none';
+    var markers = defs.selectAll('marker').data(links, linkKey);
 
-  markers.enter()
-    .append("marker")
-      .attr("id", arrowheadId)
-      .attr("viewBox", "0 -5 10 10")
-      .attr("refX", isFirst ? 15 : 12)
-      .attr("refY", isFirst ? -0.5 : -0.2)
-      .attr("markerWidth", 6)
-      .attr("markerHeight", 6)
-      .attr("orient", "auto")
-      .style('animation', animation)
-    .append("path")
-      .attr("d", "M0,-5L10,0L0,5")
-      .style('fill', linkColor)
-      .style('animation', animation)
-    .transition(t)
-      .attr("refX", 15)
-      .attr("refY", -0.5)
+    // Disable animation from css parents when we are adding a link
+    var animation = isFirst ? '' : 'none';
 
-  var link = lines.selectAll("g.link").data(links, linkKey);
+    markers.enter()
+      .append("marker")
+        .attr("id", arrowheadId)
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", isFirst ? 15 : 12)
+        .attr("refY", isFirst ? -0.5 : -0.2)
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6)
+        .attr("orient", "auto")
+        .style('animation', animation)
+      .append("path")
+        .attr("d", "M0,-5L10,0L0,5")
+        .style('fill', linkColor)
+        .style('animation', animation)
+      .transition(t)
+        .attr("refX", 15)
+        .attr("refY", -0.5)
 
-  var linkEnter = link.enter()
-    .append('g')
-      .attr('class', 'link')
-      .style('animation', animation);
+    var link = lines.selectAll("g.link").data(links, linkKey);
 
-  linkEnter.append("path")
-      .attr("class", "link")
-      .attr("marker-end", function(d) {
-        return "url(#" + arrowheadId(d) + ")";
-      })
-      .style('stroke', linkColor)
-      .text(function(d) { return d.predicate; })
-      .style('animation', animation)
-      .style('stroke-width', isFirst ? '2px' : '4px')
-    .transition(t)
-      .style('stroke-width', '2px');
+    var linkEnter = link.enter()
+      .append('g')
+        .attr('class', 'link')
+        .style('animation', animation);
 
-  linkEnter.append("path")
-      .attr("id", pathId)
-      .attr("class", "textPath");
+    linkEnter.append("path")
+        .attr("class", "link")
+        .attr("marker-end", function(d) {
+          return "url(#" + arrowheadId(d) + ")";
+        })
+        .style('stroke', linkColor)
+        .text(function(d) { return d.predicate; })
+        .style('animation', animation)
+        .style('stroke-width', isFirst ? '2px' : '4px')
+      .transition(t)
+        .style('stroke-width', '2px');
 
-  link = linkEnter.merge(link);
-  linkPath = link.select('path.link');
-  textPath = link.select('path.textPath');
+    linkEnter.append("path")
+        .attr("id", pathId)
+        .attr("class", "textPath");
 
-  circle = circles.selectAll("circle")
+    link = linkEnter.merge(link);
+    linkPath = link.select('path.link');
+    textPath = link.select('path.textPath');
+
+    circle = circles.selectAll("circle")
+        .data(simulation.nodes(), nodeKey);
+    circleEnter = circle.enter()
+      .append("circle")
+        .attr("r", 6)
+        .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended)
+        );
+    circle = circleEnter.merge(circle);
+
+    text = svg.selectAll("g.text")
       .data(simulation.nodes(), nodeKey);
-  circleEnter = circle.enter()
-    .append("circle")
-      .attr("r", 6)
-      .call(d3.drag()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended)
-      );
-  circle = circleEnter.merge(circle);
+    textEnter = text.enter()
+      .append("g")
+        .attr('class', 'text')
+        .style('animation', animation);
 
-  text = svg.selectAll("g.text")
-    .data(simulation.nodes(), nodeKey);
-  textEnter = text.enter()
-    .append("g")
-      .attr('class', 'text')
-      .style('animation', animation);
+    // A copy of the text with a thick white stroke for legibility.
+    textEnter.append("text")
+        .attr("x", 8)
+        .attr("y", ".31em")
+        .attr("class", "shadow")
+        .text(function(d) { return d.uri; });
 
-  // A copy of the text with a thick white stroke for legibility.
-  textEnter.append("text")
-      .attr("x", 8)
-      .attr("y", ".31em")
-      .attr("class", "shadow")
-      .text(function(d) { return d.uri; });
+    textEnter.append("text")
+        .attr("x", 8)
+        .attr("y", ".31em")
+        .text(function(d) { return d.uri; });
 
-  textEnter.append("text")
-      .attr("x", 8)
-      .attr("y", ".31em")
-      .text(function(d) { return d.uri; });
+    text = textEnter.merge(text);
 
-  text = textEnter.merge(text);
+    svg.selectAll("text.path_label")
+      .data(links, linkKey)
+      .enter().append("text")
+        .attr("dy", "-.5em")
+        .attr("class", "path_label")
+        .style('animation', animation)
+      .append("textPath")
+        .attr("class", "predicate")
+        .attr("startOffset", "50%")
+        .attr("text-anchor", "middle")
+        .attr("xlink:href", function(d) { return "#" + pathId(d); })
+        .style('fill', linkColor)
+        .text(function(d) { return d.predicate; })
+        .style('animation', animation)
+        .style('font-size', isFirst ? '12px' : '16px')
+      .transition(t)
+        .style('font-size', '12px')
 
-  svg.selectAll("text.path_label")
-    .data(links, linkKey)
-    .enter().append("text")
-      .attr("dy", "-.5em")
-      .attr("class", "path_label")
-      .style('animation', animation)
-    .append("textPath")
-      .attr("class", "predicate")
-      .attr("startOffset", "50%")
-      .attr("text-anchor", "middle")
-      .attr("xlink:href", function(d) { return "#" + pathId(d); })
-      .style('fill', linkColor)
-      .text(function(d) { return d.predicate; })
-      .style('animation', animation)
-      .style('font-size', isFirst ? '12px' : '16px')
-    .transition(t)
-      .style('font-size', '12px')
+    simulation.restart();
+  }
 
-  simulation.restart();
+  function arcPath(leftHand, d) {
+    var start = leftHand ? d.source : d.target,
+        end = leftHand ? d.target : d.source,
+        dx = end.x - start.x,
+        dy = end.y - start.y,
+        dr = Math.sqrt(dx * dx + dy * dy),
+        sweep = leftHand ? 1 : 0;
+    return "M" + start.x + "," + start.y + "A" + dr + "," + dr + " 0 0," + sweep + " " + end.x + "," + end.y;
+  }
+
+  // Use elliptical arc path segments to doubly-encode directionality.
+  function tick() {
+    linkPath.attr("d", function(d) {
+      return arcPath(true, d);
+    });
+      
+    textPath.attr("d", function(d) {
+      return arcPath(d.source.x < d.target.x, d);
+    });
+
+    circle.attr("transform", function(d) {
+      return "translate(" + d.x + "," + d.y + ")";
+    });
+
+    text.attr("transform", function(d) {
+      return "translate(" + d.x + "," + d.y + ")";
+    });
+  }
+
+  function pushTriple() {
+    triples.push(
+      {subject:"Latham_&_Watkins", predicate:"hasPastClient", object:"Coca_Cola"}
+    );
+    update(false);
+  }
+
+  update(true);
+  return {
+    pushTriple: pushTriple
+  };
 }
 
-function arcPath(leftHand, d) {
-  var start = leftHand ? d.source : d.target,
-      end = leftHand ? d.target : d.source,
-      dx = end.x - start.x,
-      dy = end.y - start.y,
-      dr = Math.sqrt(dx * dx + dy * dy),
-      sweep = leftHand ? 1 : 0;
-  return "M" + start.x + "," + start.y + "A" + dr + "," + dr + " 0 0," + sweep + " " + end.x + "," + end.y;
-}
-
-// Use elliptical arc path segments to doubly-encode directionality.
-function tick() {
-  linkPath.attr("d", function(d) {
-    return arcPath(true, d);
-  });
-    
-  textPath.attr("d", function(d) {
-    return arcPath(d.source.x < d.target.x, d);
-  });
-
-  circle.attr("transform", function(d) {
-    return "translate(" + d.x + "," + d.y + ")";
-  });
-
-  text.attr("transform", function(d) {
-    return "translate(" + d.x + "," + d.y + ")";
-  });
-}
-
-function pushTriple() {
-  triples.push(
-    {subject:"Latham_&_Watkins", predicate:"hasPastClient", object:"Coca_Cola"}
-  );
-  update(false);
-}
-
-update(true);
+var knowledgeGraph = makeGraph('graph');
+var extractionGraph = makeGraph('extraction');
