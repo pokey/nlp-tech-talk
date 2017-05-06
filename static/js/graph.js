@@ -63,8 +63,10 @@ var linkPath, textPath, circle, text;
 
 var tripleId = 0;
 
+var color = d3.scaleOrdinal(d3.schemeSet1);
+
 function linkColor(d) {
-  return (d.predicate == "type" ? "green" : "black");
+  return color(d.predicate);
 }
 
 function linkKey(d) {
@@ -104,29 +106,31 @@ function update(isFirst) {
       .links(links);
 
   var t = d3.transition()
+      .ease(d3.easeBounce)
       .duration(5000);
 
   var markers = defs.selectAll('marker').data(links, linkKey);
 
-  var initialColor = isFirst ? linkColor : 'red';
+  // Disable animation from css parents when we are adding a link
   var animation = isFirst ? '' : 'none';
 
   markers.enter()
     .append("marker")
       .attr("id", arrowheadId)
       .attr("viewBox", "0 -5 10 10")
-      .attr("refX", 15)
-      .attr("refY", -0.5)
+      .attr("refX", isFirst ? 15 : 12)
+      .attr("refY", isFirst ? -0.5 : -0.2)
       .attr("markerWidth", 6)
       .attr("markerHeight", 6)
       .attr("orient", "auto")
       .style('animation', animation)
     .append("path")
       .attr("d", "M0,-5L10,0L0,5")
-      .style('fill', initialColor)
+      .style('fill', linkColor)
       .style('animation', animation)
     .transition(t)
-      .style('fill', linkColor);
+      .attr("refX", 15)
+      .attr("refY", -0.5)
 
   var link = lines.selectAll("g.link").data(links, linkKey);
 
@@ -140,11 +144,12 @@ function update(isFirst) {
       .attr("marker-end", function(d) {
         return "url(#" + arrowheadId(d) + ")";
       })
-      .style('stroke', initialColor)
+      .style('stroke', linkColor)
       .text(function(d) { return d.predicate; })
       .style('animation', animation)
+      .style('stroke-width', isFirst ? '2px' : '4px')
     .transition(t)
-      .style('stroke', linkColor);
+      .style('stroke-width', '2px');
 
   linkEnter.append("path")
       .attr("id", pathId)
@@ -198,11 +203,12 @@ function update(isFirst) {
       .attr("startOffset", "50%")
       .attr("text-anchor", "middle")
       .attr("xlink:href", function(d) { return "#" + pathId(d); })
-      .style('fill', initialColor)
+      .style('fill', linkColor)
       .text(function(d) { return d.predicate; })
       .style('animation', animation)
+      .style('font-size', isFirst ? '12px' : '16px')
     .transition(t)
-      .style('fill', linkColor);
+      .style('font-size', '12px')
 
   simulation.restart();
 }
