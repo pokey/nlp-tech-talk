@@ -1,0 +1,16 @@
+.parsable {
+   padding: 5px;
+   background-color: #e0efff;
+   border: 2px solid #b0cdea;
+   cursor: pointer;
+}
+
+.parsable:hover {
+   background-color: #8cb8e6;
+   border-color: #3481ce;
+}
+
+.parsable:active {
+   background-color: #378ce4;
+   border-color: #003c77;
+}

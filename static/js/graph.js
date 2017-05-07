@@ -9,6 +9,7 @@ var TRIPLES = [
   {subject:"Latham_&_Watkins", predicate:"industry",      object:"Legal"},
   {subject:"Coca_Cola",        predicate:"location",      object:"Atlanta,_Georgia"},
   {subject:"Coca_Cola",        predicate:"foundingDate",  object:"1886"},
+  {subject:"Coca_Cola",        predicate:"type",          object:"Corporation"},
 ];
 
 var NODES = {
@@ -31,6 +32,22 @@ var w = 600,
 
 var centerX = w / 2;
 var centerY = h / 2;
+
+function linkKey(d) {
+  return d.id;
+}
+
+function nodeKey(d) {
+  return d.uri;
+}
+
+function pathId(d) {
+  return d.source.index + "_" + d.target.index; 
+}
+
+function arrowheadId(d) {
+  return "arrowhead_" + d.id; 
+}
 
 function makeGraph(elemId) {
   nodes = deepCopy(NODES);
@@ -77,22 +94,6 @@ function makeGraph(elemId) {
     return color(d.predicate);
   }
 
-  function linkKey(d) {
-    return d.id;
-  }
-
-  function nodeKey(d) {
-    return d.uri;
-  }
-
-  function pathId(d) {
-    return d.source.index + "_" + d.target.index; 
-  }
-
-  function arrowheadId(d) {
-    return "arrowhead_" + d.id; 
-  }
-
   function update(isFirst) {
     // Compute the distinct nodes from the links.
     triples.forEach(function(triple) {
@@ -117,10 +118,10 @@ function makeGraph(elemId) {
         .ease(d3.easeBounce)
         .duration(5000);
 
-    var markers = defs.selectAll('marker').data(links, linkKey);
-
-    // Disable animation from css parents when we are adding a link
+    // Disable animation inherited from parents' css when we are adding a link
     var animation = isFirst ? '' : 'none';
+
+    var markers = defs.selectAll('marker').data(links, linkKey);
 
     markers.enter()
       .append("marker")
@@ -159,6 +160,9 @@ function makeGraph(elemId) {
       .transition(t)
         .style('stroke-width', '2px');
 
+    // Create dummy paths to attach predicate text to
+    // We can't use the regular line because we want to flip the direction of
+    // this path to keep the text right-side up
     linkEnter.append("path")
         .attr("id", pathId)
         .attr("class", "textPath");
@@ -196,6 +200,7 @@ function makeGraph(elemId) {
     textEnter.append("text")
         .attr("x", 8)
         .attr("y", ".31em")
+        .attr("class", "entity")
         .text(function(d) { return d.uri; });
 
     text = textEnter.merge(text);
@@ -250,18 +255,58 @@ function makeGraph(elemId) {
     });
   }
 
+  var pushed = false;
   function pushTriple() {
-    triples.push(
-      {subject:"Latham_&_Watkins", predicate:"hasPastClient", object:"Coca_Cola"}
-    );
-    update(false);
+    if (!pushed) {
+      triples.push(
+        {subject:"Latham_&_Watkins", predicate:"hasPastClient", object:"Coca_Cola"}
+      );
+      update(false);
+      pushed = true;
+    }
   }
 
   update(true);
+
   return {
-    pushTriple: pushTriple
+    pushTriple: pushTriple,
+    color: color,
+    nodes: nodes,
+    circles: circles,
+    svg: svg,
   };
 }
 
 var knowledgeGraph = makeGraph('graph');
 var extractionGraph = makeGraph('extraction');
+
+function cocaCola(on) {
+  var bgColor = on ? extractionGraph.color('coca-cola') : 'transparent';
+  var nodeColor = on ? extractionGraph.color('coca-cola') : '';
+  var r = on ? 12 : 6;
+  var x = on ? 16 : 8;
+  var fontSize = on ? "16px" : "12px";
+
+  var t = d3.transition();
+  var data = [extractionGraph.nodes['Coca_Cola']]
+
+  d3.select('#cocaCola')
+      .style('background-color', bgColor);
+
+  extractionGraph.circles.selectAll("circle")
+    .data(data, nodeKey)
+    .transition(t)
+      .style('fill', nodeColor)
+      .attr("r", r)
+
+  var text = extractionGraph.svg.selectAll("g.text")
+    .data([extractionGraph.nodes['Coca_Cola']], nodeKey)
+
+  text.selectAll("text")
+    .transition(t)
+      .attr("x", x)
+
+  text.select(".entity")
+    .transition(t)
+      .style("font-size", fontSize);
+}

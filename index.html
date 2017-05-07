@@ -29,6 +29,9 @@
     <!-- Knowledge graph -->
     <link rel="stylesheet" type='text/css' media='all' href="static/css/graph.css">
 
+    <!-- Extra stuff -->
+    <link rel="stylesheet" type='text/css' media='all' href="static/css/nlp.css">
+
     <!-- CSS Colors -->
     <link rel="stylesheet" type='text/css' media='all' href="static/css/colors.css">
 
@@ -305,23 +308,23 @@
            </div>
         </section>
 
-        <!-- Knowledge graph -->
-        <section class="no-animate fullscreen">
+        <!-- Relation extraction goal -->
+        <section class="fullscreen no-animate">
            <div class="card-50">
               <div id="extraction" class="graph flex-content"></div>
               <div class="flex-content animate">
                  <h2>Relation extraction</h2>
-                 <ul class="description">
-                    <li onclick="extractionGraph.pushTriple()">Knowledge graph is a collection of relations between
-                       entities.</li>
-                    <li>Contains information useful for matching</li>
-                    <li>Given a sentence, we'd like to find relevant entities
-                       in knowledge graph and add new relations</li>
-                 </ul>
+                 <div class="parsable radius"
+                      onclick="extractionGraph.pushTriple()">
+                    Latham &amp; Watkins has had many high-profile clients,
+                    including
+                    <span id="cocaCola" onmouseover="cocaCola(true)"
+                       onmouseout="cocaCola(false)">Coca-Cola</span>.
+                 </div>
               </div>
            </div>
         </section>
-        <!-- <li onclick="pushTriple()">Lorem</li> -->
+        <!-- <li onclick="extractionGraph.pushTriple()">Lorem</li> -->
 
         <!-- Relation extraction -->
         <section>
