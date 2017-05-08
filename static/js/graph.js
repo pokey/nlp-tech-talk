@@ -91,7 +91,7 @@ function makeGraph(elemId) {
 
   var tripleId = 0;
 
-  var color = d3.scaleOrdinal(d3.schemeSet2);
+  var color = d3.scaleOrdinal(d3.schemeSet1);
 
   function linkColor(d) {
     return color(d.predicate);
@@ -290,6 +290,14 @@ function highlightEntities(on) {
   var nodeColor = function(d) {
     return on ? extractionGraph.color(d.uri) : '';
   }
+  var textColor = function(d) {
+    if (on) {
+      var color = d3.hsl(extractionGraph.color(d.uri));
+      color.l  = (color.l + 0.5) % 1;
+      return '' + color;
+    }
+    return 'black';
+  }
 
   var r = on ? 12 : 6;
   var x = on ? 16 : 8;
@@ -312,6 +320,7 @@ function highlightEntities(on) {
       .style('padding', padding)
       .style('margin-top', padding)
       .style('border-width', borderWidth)
+      .style('color', textColor)
 
   extractionGraph.circles.selectAll("circle")
     .data(data, nodeKey)
