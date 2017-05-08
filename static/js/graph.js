@@ -13,15 +13,18 @@ var TRIPLES = [
 ];
 
 var NODES = {
-  "1886": {uri: "1886", x: 326.07842908129186, y: 45.67108617475361},
-  "Globality": {uri: "Globality", x: 324.1976344959891, y: 307.99888027136035},
-  "Menlo_Park": {uri: "Menlo_Park", x: 322.1923622804831, y: 495.67554647562184},
-  "City": {uri: "City", x: 140.19257596576654, y: 462.96650749465084},
-  "Atlanta,_Georgia": {uri: "Atlanta,_Georgia", x: 60.49266279476002, y: 294.4064534254175},
-  "Coca_Cola": {uri: "Coca_Cola", x: 196.10474044637402, y: 172.54335370978723},
-  "Latham_&_Watkins": {uri: "Latham_&_Watkins", x: 485.3261715837793, y: 214.7531640780634},
-  "Legal": {uri: "Legal", x: 528.3838046366114, y: 394.1161344790291}
+  "1886": {uri: "1886", x: 485.08855506728264, y: 289.8670698595927},
+  "Globality": {uri: "Globality", x: 256.3559179136504, y: 410.448276201156},
+  "Menlo_Park": {uri: "Menlo_Park", x: 83.92997119750402, y: 382.81827430484475},
+  "City": {uri: "City", x: 139.61065209414951, y: 215.82600255720297},
+  "Atlanta,_Georgia": {uri: "Atlanta,_Georgia", x: 253.83315449595113, y: 80.59225202119978},
+  "Coca_Cola": {uri: "Coca_Cola", x: 310.2867869231662, y: 247.4835462482827},
+  "Latham_&_Watkins": {uri: "Latham_&_Watkins", x: 435.8877573008512, y: 418.9047682683342},
+  "Legal": {uri: "Legal", x: 290.4583074887293, y: 523.5155083552423},
+  "Corporation": {uri: "Corporation", x: 444.5497547165428, y: 130.53765729914292}
 };
+
+
 
 function deepCopy(o) {
   return JSON.parse(JSON.stringify(o));
@@ -62,7 +65,7 @@ function makeGraph(elemId) {
       .on("tick", tick);
 
   var svg = d3.select("#" + elemId).append("svg:svg")
-      .attr("class", "bg-white")
+      .attr("class", "graph")
       .attr("height", "100%")
       .attr("viewBox", "0 0 " + w + " " + h);
 
@@ -88,7 +91,7 @@ function makeGraph(elemId) {
 
   var tripleId = 0;
 
-  var color = d3.scaleOrdinal(d3.schemeSet1);
+  var color = d3.scaleOrdinal(d3.schemeSet2);
 
   function linkColor(d) {
     return color(d.predicate);
@@ -280,18 +283,35 @@ function makeGraph(elemId) {
 var knowledgeGraph = makeGraph('graph');
 var extractionGraph = makeGraph('extraction');
 
-function cocaCola(on) {
-  var bgColor = on ? extractionGraph.color('coca-cola') : 'transparent';
-  var nodeColor = on ? extractionGraph.color('coca-cola') : '';
+function highlightEntities(on) {
+  var bgColor = function(d) {
+     return on ? extractionGraph.color(d.uri) : 'transparent';
+  };
+  var nodeColor = function(d) {
+    return on ? extractionGraph.color(d.uri) : '';
+  }
+
   var r = on ? 12 : 6;
   var x = on ? 16 : 8;
   var fontSize = on ? "16px" : "12px";
+  var padding = on ? '5px' : '0px';
+  var borderWidth = on ? '2px' : '0px';
 
   var t = d3.transition();
-  var data = [extractionGraph.nodes['Coca_Cola']]
+  var data = [
+    extractionGraph.nodes['Coca_Cola'],
+    extractionGraph.nodes['Latham_&_Watkins']
+  ]
 
-  d3.select('#cocaCola')
-      .style('background-color', bgColor);
+  d3.selectAll('span.entity')
+    .data(data, function(d) {
+       return d ? d.uri : this.id;
+    })
+    .transition(t)
+      .style('background-color', bgColor)
+      .style('padding', padding)
+      .style('margin-top', padding)
+      .style('border-width', borderWidth)
 
   extractionGraph.circles.selectAll("circle")
     .data(data, nodeKey)
@@ -300,7 +320,7 @@ function cocaCola(on) {
       .attr("r", r)
 
   var text = extractionGraph.svg.selectAll("g.text")
-    .data([extractionGraph.nodes['Coca_Cola']], nodeKey)
+    .data(data, nodeKey)
 
   text.selectAll("text")
     .transition(t)

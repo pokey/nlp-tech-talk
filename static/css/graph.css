@@ -1,3 +1,7 @@
+svg.graph {
+   background-color: black;
+}
+
 .link {
   fill: none;
   stroke: #666;
@@ -40,14 +44,15 @@ circle {
 }
 
 text {
+   fill: white;
   font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 1.1rem; line-height: normal; font-family: "Input Mono Compressed", Consolas, "Andale Mono", Menlo, Monaco, Courier, monospace; 
   font-size: 12px;
   pointer-events: none;
-  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+  /* text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff; */
 }
 
 text.shadow {
-  stroke: #fff;
+  stroke: black;
   stroke-width: 3px;
   stroke-opacity: .8;
 }

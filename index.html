@@ -316,11 +316,12 @@
               <div class="flex-content animate">
                  <h2>Relation extraction</h2>
                  <div class="parsable radius"
-                      onclick="extractionGraph.pushTriple()">
-                    Latham &amp; Watkins has had many high-profile clients,
-                    including
-                    <span id="cocaCola" onmouseover="cocaCola(true)"
-                       onmouseout="cocaCola(false)">Coca-Cola</span>.
+                      onclick="extractionGraph.pushTriple()"
+                      onmouseover="highlightEntities(true)"
+                      onmouseout="highlightEntities(false)">
+                    <span class="entity radius" id="Latham_&_Watkins">Latham &amp; Watkins</span> has
+                    had many high-profile clients, including
+                    <span class="entity radius" id="Coca_Cola">Coca-Cola</span>.
                  </div>
               </div>
            </div>
@@ -460,6 +461,13 @@
                </a>
 				</h3>
           </div>
+        </section>
+
+        <!-- Thank you -->
+        <section class="aligncenter">
+           <div class="wrap">
+              <h2>Thank you.</h2>
+           </div>
         </section>
 
       </article>
