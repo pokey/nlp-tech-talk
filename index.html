@@ -345,58 +345,6 @@
         </section>
         <!-- <li onclick="extractionGraph.pushTriple()">Lorem</li> -->
 
-        <!-- Leveraging the parse -->
-        <section>
-           <div class="wrap size-60 bg-white">
-              <h3>Using the dependency parse</h3>
-              <p>Given a parsed sentence, we'd like to fit it into the
-                 knowledge graph</p>
-              <hr>
-              <div class="transformation vertical-align">
-                 <div class="column">
-                    <img src="static/images/dep-parse.svg"
-                         alt="Dep parsed sentence"/>
-                    <code>We are located in Germany.</code>
-                 </div>
-                 <div class="column arrow aligncenter">
-                    <h1>
-                       <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                    </h1>
-                 </div>
-                 <div class="column">
-                    <div class="relation">
-                       <img src="static/images/relation.svg"
-                            alt="Relation"/>
-                    </div>
-                 </div>
-              </div>
-           </div>
-        </section>
-
-        <!-- Relation extraction approach -->
-        <section>
-          <div class="wrap">
-            <div class="grid vertical-align">
-              <div class="column">
-                <h3><strong>Dependency tree paths</strong></h3>
-                <ul class="description">
-                   <li>Once text is parsed, we find path between entity and
-                      service provider</li>
-                   <li>Desired sentences will have specific grammatical
-                      patterns</li>
-                   <li>We need a way to describe the set of grammatical
-                      patterns that are indicative of desired relationship</li>
-                </ul>
-              </div>
-              <div class="column aligncenter">
-                 <div class="bg-white radius">
-                    <img src="static/images/path.svg" alt="Dependency tree path">
-                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         <!-- Word vectors -->
         <section>
            <div class="card-50">
@@ -415,11 +363,6 @@
                     <li>Represent words as high-dimensional vectors</li>
                     <li>Learn dimensions from co-occurrences in real text</li>
                     <li>Dimensions capture semantic relationships</li>
-                    <li>
-                       Word vectors can learn
-                       <a href="https://arxiv.org/abs/1607.06520">biases</a>
-                       from text
-                    </li>
                  </ul>
               </div>
            </div>
@@ -433,42 +376,6 @@
             <h3 class="bg-trans-dark radius">
 					<a target="_blank" href="http://localhost:6006/">Word embedding demo</a>
 				</h3>
-          </div>
-        </section>
-
-        <!-- Pattern description snippet -->
-        <section>
-          <div class="wrap">
-            <div class="grid vertical-align">
-              <div class="column">
-                <h3><strong>A pattern language</strong></h3>
-                <p class="text-intro">A DSL to describe patterns over paths in the
-                   dependency tree</p>
-                <ul class="description">
-                   <li>Describe root, as well as path from root to subject and
-                      object of relation.</li>
-                   <li>Can use word embeddings to create soft matches such as <code>office</code> and <code>located</code></li>
-                   <li>Can create reusable components such as <code>located_in_place</code></li>
-                </ul>
-              </div>
-              <div class="column syntax">
-<pre><span></span><span class="c1"># Possessive noun phrase</span>
-<span class="c1"># eg &quot;Our office in China...&quot;</span>
-<span class="n">DepPath</span><span class="p">(</span>
-    <span class="n">head_to_start</span><span class="o">=</span><span class="p">[</span><span class="n">arc</span><span class="p">(</span><span class="n">poss</span><span class="p">,</span> <span class="n">_</span><span class="p">)],</span>
-    <span class="n">head</span><span class="o">=</span><span class="n">token</span><span class="p">(</span><span class="n">office</span><span class="p">),</span>
-    <span class="n">head_to_end</span><span class="o">=</span><span class="n">located_in_place</span>
-<span class="p">)</span>
-
-<span class="c1"># &quot;in X&quot;, &quot;located in X&quot;, etc</span>
-<span class="n">located_in_place</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">maybe</span><span class="p">([</span><span class="n">arc</span><span class="p">(</span><span class="n">acl</span><span class="p">,</span> <span class="n">located</span><span class="p">)])</span> <span class="o">+</span> <span class="n">in_place</span> <span class="o">|</span>
-    <span class="p">[</span><span class="n">arc</span><span class="p">(</span><span class="n">one_of</span><span class="p">(</span><span class="n">poss</span><span class="p">,</span> <span class="n">compound</span><span class="p">,</span> <span class="n">amod</span><span class="p">),</span> <span class="n">_</span><span class="p">)]</span> <span class="o">|</span>
-    <span class="p">[</span><span class="n">arc</span><span class="p">(</span><span class="n">amod</span><span class="p">,</span> <span class="n">located</span><span class="p">),</span> <span class="n">arc</span><span class="p">(</span><span class="n">npadvmod</span><span class="p">,</span> <span class="n">_</span><span class="p">)]</span>
-<span class="p">)</span>
-</pre>
-              </div>
-            </div>
           </div>
         </section>
 
