@@ -2,26 +2,21 @@
 
 var TRIPLES = [
   {subject:"Globality",        predicate:"location",      object:"Menlo_Park"},
-  {subject:"Menlo_Park",       predicate:"type",          object:"City"},
-  {subject:"Atlanta,_Georgia", predicate:"type",          object:"City"},
   {subject:"Globality",        predicate:"hasPastClient", object:"Coca_Cola"},
   {subject:"Globality",        predicate:"hasPastClient", object:"Latham_&_Watkins"},
   {subject:"Latham_&_Watkins", predicate:"industry",      object:"Legal"},
   {subject:"Coca_Cola",        predicate:"location",      object:"Atlanta,_Georgia"},
   {subject:"Coca_Cola",        predicate:"foundingDate",  object:"1886"},
-  {subject:"Coca_Cola",        predicate:"type",          object:"Corporation"},
-];
+]
 
 var NODES = {
   "1886": {uri: "1886", x: 485.08855506728264, y: 289.8670698595927},
   "Globality": {uri: "Globality", x: 256.3559179136504, y: 410.448276201156},
   "Menlo_Park": {uri: "Menlo_Park", x: 83.92997119750402, y: 382.81827430484475},
-  "City": {uri: "City", x: 139.61065209414951, y: 215.82600255720297},
   "Atlanta,_Georgia": {uri: "Atlanta,_Georgia", x: 253.83315449595113, y: 80.59225202119978},
   "Coca_Cola": {uri: "Coca_Cola", x: 310.2867869231662, y: 247.4835462482827},
   "Latham_&_Watkins": {uri: "Latham_&_Watkins", x: 435.8877573008512, y: 418.9047682683342},
   "Legal": {uri: "Legal", x: 290.4583074887293, y: 523.5155083552423},
-  "Corporation": {uri: "Corporation", x: 444.5497547165428, y: 130.53765729914292}
 };
 
 
