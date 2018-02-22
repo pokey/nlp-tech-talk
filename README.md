@@ -6,7 +6,12 @@ Tech talk on NLP to be given at Globality.
 Viewing the presentation
 ------------------------
 
-Open [index.html](index.html).
+1. Run the [babilonia client](https://github.com/globality-corp/babilonia#updating-the-frontend-ui).
+1. Run tensorboard word embedding visualization
+   1. Install tensorboard
+   1. `tar xzf tensorboard-logdir.tar.gz`
+   1. `tensorboard --logdir tensorboard-logdir`
+1. Open [index.html](index.html).
 
 Examples for relation extraction
 --------------------------------
