@@ -19,6 +19,16 @@ but copied here:
 - Our fully bilingual and bicultural team provides results-driven strategies
   and creative solutions through offices in San Francisco and Tokyo.
 
+Converting to PDF
+-----------------
+
+1. Take screenshot of each slide and put all screenshots into a folder, say `images`.
+2. Use ImageMagick to convert them to a PDF, eg:
+
+   ```
+   convert images/*.png nlp-tech-talk.pdf
+   ```
+
 Credit
 ------
 Based on [WebSlides](https://webslides.tv/), which is licensed under the MIT
