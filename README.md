@@ -38,3 +38,5 @@ Credit
 ------
 Based on [WebSlides](https://webslides.tv/), which is licensed under the MIT
 license.
+
+Syntax highlighting using [Pygments](http://pygments.org/docs/cmdline/).
